@@ -14,10 +14,13 @@
         rel="stylesheet">
     <style>
         :root {
-            --brand-purple: #4f2a8b;
-            --brand-orange: #f37021;
-            --brand-gold: #ffc40e;
-            --brand-maroon: #a63a2f;
+            --brand-orange: #ffb300;
+            --deep-purple: #5b187d;
+            --pastel-purple: #b388ff;
+            --golden-yellow: #ffe0b2;
+            --light-cream: #fffbe6;
+            --eggshell: #fffaf0;
+            --bright-accent: #f65c63;
         }
 
         body {
@@ -30,7 +33,7 @@
         }
 
         .main-container {
-            background: linear-gradient(160deg, var(--brand-purple), var(--brand-maroon), var(--brand-orange));
+            background: radial-gradient(circle, var(--light-cream), var(--golden-yellow), var(--pastel-purple), var(--deep-purple));
             overflow: hidden;
             position: relative;
         }
@@ -74,24 +77,27 @@
         }
 
         .content-card {
-            background: rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(12px) saturate(150%);
-            -webkit-backdrop-filter: blur(12px) saturate(150%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            background: rgba(255, 250, 240, 0.9);
+            /* eggshell at 90% opacity */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--brand-orange);
+            box-shadow: 0 8px 32px 0 rgba(91, 24, 125, 0.37);
+            color: var(--deep-purple);
         }
 
         .cta-button {
             transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            background: linear-gradient(45deg, var(--brand-orange), var(--brand-maroon));
-            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background: var(--brand-orange);
+            color: var(--deep-purple);
+            font-weight: 700;
         }
 
         .cta-button:hover:not(:disabled) {
             transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 8px 30px rgba(243, 112, 33, 0.6);
-            filter: brightness(1.15);
+            box-shadow: 0 8px 30px 0 rgba(103, 58, 183, 0.4);
+            background: #ffc233;
         }
 
         .cta-button:active:not(:disabled) {
@@ -99,7 +105,7 @@
         }
 
         .cta-button:disabled {
-            opacity: 0.5;
+            opacity: 0.6;
             cursor: not-allowed;
         }
 
@@ -112,26 +118,7 @@
         .cta-button-secondary:hover {
             background: var(--brand-orange);
             color: white;
-            box-shadow: 0 8px 30px rgba(243, 112, 33, 0.6);
-        }
-
-        .wish-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            animation: floatUp 0.8s ease-out forwards;
-        }
-
-        @keyframes floatUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            box-shadow: 0 8px 30px rgba(255, 179, 0, 0.4);
         }
 
         .effects-container {
@@ -151,6 +138,7 @@
             width: 100%;
             height: 100%;
             z-index: 0;
+            opacity: 0.7;
         }
 
         #click-effect {
@@ -172,26 +160,26 @@
         }
 
         /* --- New Diya Styles --- */
-        #diya-interactive-container {
+        #diya-interactive-wrapper {
             cursor: pointer;
         }
 
-        #diya-interactive-container .diya-flame {
+        #diya-interactive-wrapper .diya-flame {
             position: absolute;
-            width: 22px;
-            height: 32px;
+            width: 40px;
+            height: 60px;
             background: radial-gradient(circle, #FFFFFF, #FFD700 30%, #FCA510 80%);
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
             left: 50%;
             transform: translateX(-50%);
-            bottom: 53%;
-            /* Adjust this value based on your diya image's wick position */
+            bottom: 58%;
             opacity: 0;
             transform-origin: bottom center;
-            filter: blur(2px) drop-shadow(0 0 15px #FFC40E);
+            filter: blur(3px) drop-shadow(0 0 20px #FFC40E);
+            z-index: 20;
         }
 
-        #diya-interactive-container.lit-effect .diya-flame {
+        #diya-interactive-wrapper.lit-effect .diya-flame {
             animation: igniteSimpleFlame 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards,
                 flickerSimpleFlame 2.5s infinite linear 0.7s;
         }
@@ -207,9 +195,11 @@
             transform: scale(0);
             opacity: 0;
             transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.8s ease-out;
+            z-index: 10;
+            pointer-events: none;
         }
 
-        #diya-interactive-container.lit-effect+.diya-halo {
+        #diya-interactive-wrapper.lit-effect .diya-halo {
             transform: scale(3);
             opacity: 1;
         }
@@ -279,8 +269,9 @@
         }
 
         .error-message {
-            color: #fdd835;
+            color: var(--bright-accent);
             font-size: 0.75rem;
+            font-weight: 600;
             text-align: left;
             width: 100%;
             padding-left: 0.5rem;
@@ -288,20 +279,78 @@
             padding-top: 0.25rem;
         }
 
-        #img3 {
-            /* border: 3px solid red; */
-            /* max-width: 40vh !important; */
-            /* height: 400px; */
+        .form-input {
+            background-color: rgba(255, 255, 255, 0.4);
+            border-color: rgba(91, 24, 125, 0.3);
+            color: var(--deep-purple);
         }
-        #diya-interactive-container{
-display: flex;
-justify-content: center;
-align-items: center;
+
+        .form-input::placeholder {
+            color: rgba(91, 24, 125, 0.6);
         }
+
+        .form-input:focus {
+            --tw-ring-color: var(--pastel-purple);
+        }
+
+        .form-input-group {
+            background-color: rgba(255, 255, 255, 0.4);
+            border-color: rgba(91, 24, 125, 0.3);
+        }
+
+        .form-input-group:focus-within {
+            --tw-ring-color: var(--pastel-purple);
+        }
+
+        .form-input-group span {
+            color: rgba(91, 24, 125, 0.8);
+        }
+
+        .form-input-group input {
+            color: var(--deep-purple);
+        }
+
+        .form-input-group input::placeholder {
+            color: rgba(91, 24, 125, 0.6);
+        }
+
+        #map-diya-counter {
+            color: var(--deep-purple);
+        }
+
+        #map-diya-counter.burst {
+            animation: burst-effect 0.6s ease-out forwards;
+        }
+
+        @keyframes burst-effect {
+            0% {
+                transform: scale(1);
+                color: var(--deep-purple);
+                text-shadow: none;
+            }
+
+            50% {
+                transform: scale(1.5);
+                color: var(--brand-orange);
+                text-shadow: 0 0 15px var(--brand-orange);
+            }
+
+            100% {
+                transform: scale(1);
+                color: var(--deep-purple);
+                text-shadow: none;
+            }
+        }
+
+        #s1{
+            /* background: transparent; */
+        }
+
+        
     </style>
 </head>
 
-<body class="bg-gray-900 text-white">
+<body class="text-white">
 
     <div id="main-container" class="main-container min-h-screen w-full">
         <!-- Background effects -->
@@ -313,21 +362,23 @@ align-items: center;
         <!-- ========= SCREEN 1: EMPLOYEE LOGIN ========= -->
         <div id="screen-1" class="screen active relative z-10">
             <div class="content-card rounded-3xl w-full max-w-sm flex flex-col items-center overflow-hidden">
-                <img src="Untitled design (3).png" alt="Your Logo Here" class="w-full h-auto" height="70px">
+                <img src="first screen logo.jpg" alt="Your Logo Here" class="w-full h-auto">
                 <div class="p-6 w-full text-center">
-                    <h1 class="font-serif-display text-4xl font-bold tracking-tight text-yellow-300 drop-shadow-lg"
-                        style="color: var(--brand-gold);">Welcome to Udaan</h1>
-                    <p class="mt-4 text-base text-yellow-100 max-w-lg leading-relaxed mx-auto">Please enter your
-                        Employee ID to begin.</p>
+                    <h1 class="font-serif-display text-3xl sm:text-4xl font-bold tracking-tight"
+                        style="color: var(--deep-purple);">Welcome to Udaan</h1>
+                    <p class="mt-4 text-base max-w-lg leading-relaxed mx-auto" style="color: var(--deep-purple);">Please
+                        enter your Employee ID to begin.</p>
                     <form id="login-form" class="w-full flex flex-col items-center mt-6">
                         <input id="emp-id" type="text" inputmode="numeric"
-                            class="w-full p-3 rounded-xl bg-black bg-opacity-40 text-white placeholder-gray-300 border border-yellow-500 focus:ring-2 focus:ring-yellow-400 focus:outline-none text-base"
+                            class="form-input w-full p-3 rounded-xl border focus:ring-2 focus:outline-none text-base"
                             placeholder="Employee ID (Numbers Only)" required>
                         <p id="emp-id-error" class="error-message"></p>
                         <button type="submit" class="cta-button font-bold py-3 px-8 rounded-full text-lg">
                             Proceed
                         </button>
                     </form>
+                    <p class="text-xs mt-4 font-semibold tracking-wider italic" style="color: var(--deep-purple);">
+                        Touching Lives. Transforming Future.</p>
                 </div>
             </div>
         </div>
@@ -335,181 +386,201 @@ align-items: center;
         <!-- ========= SCREEN 2: DOCTOR DETAILS ========= -->
         <div id="screen-2" class="screen relative z-10 flex-col">
             <div class="content-card rounded-3xl p-6 max-w-sm w-full flex flex-col items-center">
-                <h1 class="font-serif-display text-4xl font-bold tracking-tight text-yellow-300 drop-shadow-lg"
-                    style="color: var(--brand-gold);">Your Details</h1>
-                <p class="mt-4 text-base text-yellow-100 max-w-lg leading-relaxed">Please provide the doctor's name and
-                    specialty for the certificate.</p>
+                <h1 class="font-serif-display text-2xl sm:text-3xl font-bold tracking-tight"
+                    style="color: var(--deep-purple);">Join Udaan – Touching Lives Through Education</h1>
+                <p class="mt-4 text-base leading-relaxed" style="color: var(--deep-purple);">Welcome, Doctor! Please
+                    enter your details to begin the campaign and help spread the light of learning to underprivileged
+                    children.</p>
                 <form id="doctor-details-form" class="w-full flex flex-col items-center mt-6">
                     <div class="w-full">
                         <div
-                            class="w-full flex items-center bg-black bg-opacity-40 rounded-xl border border-yellow-500 focus-within:ring-2 focus-within:ring-yellow-400 transition-all duration-200">
-                            <span class="pl-3 pr-2 text-gray-400">Dr.</span>
-                            <input id="doctor-name" type="text"
-                                class="flex-1 p-3 bg-transparent text-white placeholder-gray-300 focus:outline-none"
+                            class="form-input-group w-full flex items-center rounded-xl border focus-within:ring-2 transition-all duration-200">
+                            <span class="pl-3 pr-2 font-semibold">Dr.</span>
+                            <input id="doctor-name" type="text" class="flex-1 p-3 bg-transparent focus:outline-none"
                                 placeholder="Name" required>
                         </div>
                         <p id="doctor-name-error" class="error-message"></p>
                     </div>
 
                     <div class="w-full">
-                        <input id="doctor-specialty" type="text"
-                            class="w-full p-3 rounded-xl bg-black bg-opacity-40 text-white placeholder-gray-300 border border-yellow-500 focus:ring-2 focus:ring-yellow-400 focus:outline-none text-base"
-                            placeholder="e.g., MBBS, MD" required>
+                        <select id="doctor-specialty"
+                            class="form-input w-full p-3 rounded-xl border focus:ring-2 focus:outline-none text-base"
+                            required>
+                            <option value="" disabled selected>Select Specialty</option>
+                            <option value="Ophthalmology">Ophthalmology</option>
+                            <option value="Gynecology">Gynecology</option>
+                            <option value="Nephrology">Nephrology</option>
+                        </select>
                         <p id="doctor-specialty-error" class="error-message"></p>
                     </div>
 
-                    <button type="submit" class="cta-button mt-4 font-bold py-3 px-8 rounded-full text-lg">
+                    <div class="w-full mt-2">
+                        <label for="doctor-photo"
+                            class="form-input w-full p-3 rounded-xl border cursor-pointer flex items-center justify-between text-left">
+                            <span id="photo-file-name" class="truncate text-gray-500">Upload Profile Photo</span>
+                            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                            </svg>
+                        </label>
+                        <input id="doctor-photo" type="file" class="hidden" accept="image/*">
+                    </div>
+
+                    <button type="submit" data-next="3"
+                        class="cta-button mt-4 font-bold py-3 px-8 rounded-full text-lg">
                         Continue
                     </button>
                 </form>
             </div>
         </div>
 
-        <!-- ========= SCREEN 3: CAMPAIGN BRIEF & LIGHT DIYA ========= -->
+        <!-- ========= SCREEN 3: ABOUT UDAAN ========= -->
         <div id="screen-3" class="screen relative z-10">
             <div class="content-card rounded-3xl p-8 max-w-sm w-full flex flex-col items-center">
-                <h1 class="font-serif-display text-4xl font-bold tracking-tight text-yellow-300 drop-shadow-lg"
-                    style="color: var(--brand-gold);">This Diwali, Give Dreams Flight.</h1>
-                <p class="mt-4 text-base text-yellow-100 max-w-lg leading-relaxed">Join Udaan, an initiative bringing
-                    the light of education to underprivileged children.</p>
-
-                <div id="diya-interactive-container" class="relative mx-auto w-40 h-40 my-6">
-                    <!-- <img src="Diya.png" alt="Diya" id="img3" class="w-full h-full object-contain" style="filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));" > -->
-                    <img src="Diya.png" alt="Diya" id="img3"
-                        style="  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5)); object-fit: contain;">
-
-                    <div class="diya-flame"></div>
-                    <div class="diya-halo"></div>
-                </div>
-
-                <p id="diya-instruction" class="mt-2 text-md text-amber-200 leading-relaxed">Click the Diya to light it
-                    and<br>brighten a child's future.</p>
-
-                <div id="diya-lit-message" class="hidden flex-col items-center">
-                    <h2 class="font-serif-display text-2xl font-bold text-white">Thank You!</h2>
-                    <p class="mt-2 text-sm text-yellow-200">
-                        <span id="diya-counter" class="font-bold text-lg text-white">4,126</span>
-                        Diyas of Hope Lit So Far!
-                    </p>
-                </div>
-
-                <button id="screen-3-cta" data-next="4"
-                    class="cta-button mt-8 font-bold py-3 px-8 rounded-full text-lg hidden">
-                    See Our Impact
+                <h1 class="font-serif-display text-3xl sm:text-4xl font-bold tracking-tight"
+                    style="color: var(--deep-purple);">Gifting Education This Diwali</h1>
+                <p class="mt-4 text-base leading-relaxed">Udaan is an initiative dedicated to providing educational
+                    opportunities for underprivileged children.</p>
+                <p class="text-xs mt-4 font-semibold tracking-wider italic" style="color: var(--deep-purple);">Lighting
+                    one diya is a contribution to one complete Educational Kit.</p>
+                <button data-next="4" class="cta-button mt-8 font-bold py-3 px-8 rounded-full text-lg">
+                    Continue
                 </button>
             </div>
         </div>
 
-        <!-- ========= SCREEN 4: IMPACT MAP ========= -->
-        <div id="screen-4" class="screen relative z-10 w-full">
-            <div class="content-card rounded-3xl p-6 max-w-md w-full flex flex-col items-center">
-                <h2 class="font-serif-display text-3xl font-bold text-yellow-300 mb-4"
-                    style="color: var(--brand-gold);">Our Collective Light Across India</h2>
-                <div id="india-map-container">
-                    <!-- The "dark" map image is the base -->
-                    <img src="1.png" alt="Map of India" class="india-map-img">
-                    <!-- The "lit" map image is on top and will be revealed -->
-                    <img id="india-map-lit" src="2.png" alt="Illuminated Map of India" class="india-map-img">
-                </div>
+        <!-- ========= SCREEN 4: LIGHT DIYA ========= -->
+        <div id="screen-4" class="screen relative z-10">
+            <div id="diya-lighting-card"
+                class="content-card rounded-3xl p-8 max-w-sm w-full flex flex-col items-center transition-all duration-500 ease-in-out">
+                <div id="diya-state-container" class="relative w-full">
+                    <div id="diya-lighting-state"
+                        class="w-full flex flex-col items-center transition-opacity duration-500 ease-in-out">
+                        <h1 class="font-serif-display text-3xl sm:text-4xl font-bold tracking-tight"
+                            style="color: var(--deep-purple);">Light a Diya, Share the Joy of Learning</h1>
+                        <p class="mt-2 text-sm leading-relaxed">With every diya you light, you bring hope and education
+                            to an underprivileged child.
+                            Your kindness glows bright, opening the door to knowledge and smiles.</p>
 
-                <p class="mt-4 text-base italic text-amber-200 leading-relaxed">Together, we've reached 10+ cities,
-                    sparking countless dreams.</p>
+                        <div id="diya-interactive-wrapper" class="relative mx-auto w-56 h-56 my-2">
+                            <img src="https://placehold.co/250x250/FFFFFF/000000?text=Two+unprivileged+kids+studying"
+                                alt="Watermark of kids studying"
+                                class="absolute inset-0 w-full h-full object-cover rounded-full opacity-10 z-0">
+                            <img id="diya-image" src="Diya.png" alt="Diya"
+                                class="relative z-10 w-full h-full object-contain"
+                                style="filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));">
+                            <div class="diya-flame"></div>
+                            <div class="diya-halo"></div>
+                        </div>
 
-                <button id="map-cta-button" data-next="5"
-                    class="cta-button mt-6 font-bold py-3 px-8 rounded-full text-lg" disabled>
-                    Share Your Wish
-                </button>
-            </div>
-        </div>
-
-
-        <!-- ========= SCREEN 5: SHARE WISH ========= -->
-        <div id="screen-5" class="screen relative z-10 w-full">
-            <div class="content-card rounded-3xl p-6 max-w-sm w-full flex flex-col items-center">
-                <h2 class="font-serif-display text-3xl font-bold text-yellow-300 mb-2"
-                    style="color: var(--brand-gold);">Share Your Wish</h2>
-                <p class="text-base text-yellow-100 max-w-md mb-6 leading-relaxed">Send a message of hope to the
-                    children of Udaan. Your words will join our growing Wall of Light.</p>
-                <form id="wish-form" class="w-full flex flex-col items-center">
-                    <textarea id="wish-input"
-                        class="w-full h-24 p-3 rounded-xl bg-black bg-opacity-40 text-white placeholder-gray-300 border border-yellow-500 focus:ring-2 focus:ring-yellow-400 focus:outline-none text-base"
-                        placeholder="“May your dreams shine bright...”" required></textarea>
-                    <button type="submit" class="cta-button mt-5 font-bold py-3 px-8 rounded-full text-lg">
-                        Send My Message
-                    </button>
-                </form>
-                <div id="wall-of-light" class="mt-6 w-full space-y-3 h-24 overflow-y-auto">
-                    <div id="wall-placeholder" class="text-yellow-200 opacity-75 pt-8">
-                        Be the first to send a wish.
+                        <p class="text-sm leading-relaxed italic" style="color: var(--deep-purple);">Let’s spread the
+                            light, one child at a time.</p>
+                        <button id="light-diya-btn" class="cta-button mt-4 font-bold py-3 px-8 rounded-full text-lg">
+                            Light a Diya
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ========= SCREEN 6: CERTIFICATE OF APPRECIATION ========= -->
-        <div id="screen-6" class="screen relative z-10">
-            <div class="flex flex-col items-center max-w-sm w-full">
+        <!-- ========= SCREEN 5: GIFT KIT RECEIVED ========= -->
+        <div id="screen-5" class="screen relative z-10 w-full">
+            <div id="s1" class="content-card rounded-3xl p-8 max-w-sm w-full flex flex-col items-center">
+                <h2 class="font-serif-display text-3xl sm:text-4xl font-bold" style="color: var(--deep-purple);">You’re
+                    Donating an Educational Kit!</h2>
+                <p class="mt-2 text-base leading-relaxed" style="color: var(--deep-purple);">Yes, I am donating a kit
+                    filled with books, pencils, and colors to an underprivileged child—lighting up their Diwali and
+                    helping shape their future.</p>
+                <img src="gift.png" alt="Educational Kit" class="my-4 rounded-lg ">
+                <button data-next="6" class="cta-button mt-6 font-bold py-3 px-8 rounded-full text-lg">
+                    See How My Gift is Brightening India
+                </button>
+            </div>
+        </div>
+
+        <!-- ========= SCREEN 6: IMPACT MAP ========= -->
+        <div id="screen-6" class="screen relative z-10 w-full">
+            <div class="content-card rounded-3xl p-6 max-w-md w-full flex flex-col items-center">
+                <h2 class="font-serif-display text-2xl sm:text-3xl font-bold" style="color: var(--deep-purple);">Your
+                    Light is Spreading Across India</h2>
+                <div class="my-4 text-center">
+                    <span class="text-lg font-semibold">Diyas Lit in Real-Time: </span>
+                    <span id="map-diya-counter" class="text-3xl font-bold font-serif-display">4127</span>
+                </div>
+                <div id="india-map-container">
+                    <img src="india1.png" alt="Map of India" class="india-map-img">
+                    <img id="india-map-lit" src="India_map.png" alt="Illuminated Map of India" class="india-map-img">
+                </div>
+                <p class="mt-4 text-base leading-relaxed" style="color: var(--deep-purple);">Your kindness is reaching
+                    underprivileged children in every corner of the country.</p>
+                <button id="map-cta-button" data-next="7"
+                    class="cta-button mt-4 font-bold py-3 px-8 rounded-full text-lg" disabled>
+                    Receive Your Certificate
+                </button>
+            </div>
+        </div>
+
+        <!-- ========= SCREEN 7: CERTIFICATE OF APPRECIATION ========= -->
+        <div id="screen-7" class="screen relative z-10">
+            <div class="content-card rounded-3xl p-6 max-w-sm w-full flex flex-col items-center">
+                <h1 class="font-serif-display text-3xl sm:text-4xl font-bold tracking-tight"
+                    style="color: var(--deep-purple);">Thank You for Your Support!</h1>
                 <div id="certificate"
-                    class="bg-amber-50 rounded-2xl p-4 w-full text-center relative overflow-hidden shadow-2xl text-slate-800">
+                    class="bg-amber-50 rounded-2xl p-4 w-full text-center relative overflow-hidden shadow-md my-6">
                     <div class="border-2 border-amber-300 rounded-lg p-4 flex flex-col items-center relative">
                         <div class="absolute top-0 left-0 w-full h-full bg-repeat bg-center opacity-[0.03]"
                             style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZHRoPSI4MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJjdXJyZW50Q2xvciI+PHBhdGggZD0iTTIxIDEyYTkgOSAwIDEwLTE4IDAgOS A5IDAgMDAxOCAwem0tMiAwYTYgNiAwIDExLTEyIDAgNiA2IDAgMDAxMiAweiIvPjwvc3ZnPg==');">
                         </div>
 
                         <div class="relative z-10 flex flex-col items-center w-full">
-                            <div class="w-40">
-                                <img src="Udaan_Logo_F2_C2C-removebg-preview.png" width="500px" alt="Your Logo Here"
+                            <div class="w-60 pb-lg-5">
+                                <img src="Udaan_Logo_F2_C2C-removebg-preview.png" alt="Your Logo Here"
                                     class="w-full h-auto rounded-lg">
                             </div>
 
-                            <p class="font-serif-display text-2xl mt-4" style="color: var(--brand-purple);">Certificate
-                                of Appreciation</p>
-                            <div class="w-24 h-px my-3" style="background-color: var(--brand-orange);"></div>
+                            <p class="font-serif-display text-xl mt-2" style="color: var(--deep-purple);">Certificate of
+                                Appreciation</p>
+                            <div class="w-20 h-px my-2" style="background-color: var(--brand-orange);"></div>
 
-                            <p class="text-base mt-4" style="color: #6d483c;">Proudly Presented To</p>
-                            <p id="certificate-name" class="font-serif-display text-4xl my-2 tracking-tight"
-                                style="color: var(--brand-maroon);">A Valued Supporter</p>
+                            <p class="text-sm" style="color: #6d483c;">Proudly Presented To</p>
+                            <p id="certificate-name" class="font-serif-display text-2xl my-1 tracking-tight"
+                                style="color: var(--deep-purple);">A Valued Supporter</p>
 
-                            <p class="text-sm mt-4 text-slate-700 max-w-xs px-2 leading-relaxed">
-                                For your generous spirit in lighting a diya of hope and giving wings to a child's dream
-                                through the Udaan initiative this Diwali.
+                            <p class="text-xs mt-2 text-slate-700 max-w-xs px-2 leading-relaxed">
+                                For your generous spirit in lighting a diya of hope and giving wings to an unprivileged
+                                child's dream through the Udaan initiative this Diwali.
                             </p>
 
-                            <div class="mt-8 flex justify-between items-end w-full">
+                            <div class="mt-4 flex justify-between items-end w-full">
                                 <div class="text-center">
-                                    <p id="certificate-date" class="text-base font-serif-display"
-                                        style="color: var(--brand-purple);"></p>
+                                    <p id="certificate-date" class="text-sm font-serif-display"
+                                        style="color: var(--deep-purple);"></p>
                                     <p class="text-xs font-bold uppercase tracking-widest border-t-2 pt-1 mt-1"
-                                        style="color: var(--brand-purple); border-color: var(--brand-orange);">Date</p>
+                                        style="color: var(--deep-purple); border-color: var(--brand-orange);">Date</p>
                                 </div>
                                 <div class="text-center">
-                                    <div class="w-16 h-16 mx-auto relative">
-                                        <svg class="w-full h-full" style="color: var(--brand-orange);"
-                                            viewBox="0 0 100 100">
-                                            <circle cx="50" cy="50" r="48" fill="#fff7e6" stroke="currentColor"
-                                                stroke-width="2"></circle>
-                                            <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor"
-                                                stroke-width="1" stroke-dasharray="4"></circle>
-                                            <path d="M42 40 L58 50 L42 60 Z" fill="currentColor"></path>
-                                        </svg>
+                                    <div class="w-20 h-12 mx-auto relative pt-3">
+                                        <img src="inskas_logo.png" alt="Ihskas Foundation Logo"
+                                            class="rounded-full w-full h-full object-cover">
                                     </div>
                                     <p class="text-xs font-bold uppercase tracking-widest border-t-2 pt-1 mt-1"
-                                        style="color: var(--brand-purple); border-color: var(--brand-orange);">Official
-                                        Seal</p>
+                                        style="color: var(--deep-purple); border-color: var(--brand-orange);">Ihskas
+                                        Foundation</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <p class="text-yellow-100 mt-6 text-base">Thank you for making a difference!</p>
-                <button id="download-btn" class="cta-button mt-4 font-bold py-3 px-8 rounded-full text-lg w-full">
-                    Download Certificate
-                </button>
-                <button data-next="1"
-                    class="cta-button cta-button-secondary mt-4 font-bold py-3 px-8 rounded-full text-lg w-full">
-                    Start Over
-                </button>
+                <div class="flex flex-col sm:flex-row sm:space-x-4 w-full space-y-4 sm:space-y-0">
+                    <button id="download-btn" class="cta-button font-bold py-3 px-8 rounded-full text-lg w-full">
+                        Download Certificate
+                    </button>
+                    <button data-next="1"
+                        class="cta-button cta-button-secondary font-bold py-3 px-8 rounded-full text-lg w-full">
+                        Start Over
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -530,26 +601,18 @@ align-items: center;
             const doctorSpecialtyInput = document.getElementById('doctor-specialty');
             const doctorNameError = document.getElementById('doctor-name-error');
             const doctorSpecialtyError = document.getElementById('doctor-specialty-error');
+            const doctorPhotoInput = document.getElementById('doctor-photo');
+            const photoFileName = document.getElementById('photo-file-name');
 
 
-            const interactiveDiya = document.getElementById('diya-interactive-container');
-            const diyaInstruction = document.getElementById('diya-instruction');
-            const diyaLitMessage = document.getElementById('diya-lit-message');
-            const screen3Cta = document.getElementById('screen-3-cta');
-
-            const wishForm = document.getElementById('wish-form');
-            const wishInput = document.getElementById('wish-input');
-            const wallOfLight = document.getElementById('wall-of-light');
+            const interactiveDiyaWrapper = document.getElementById('diya-interactive-wrapper');
+            const lightDiyaBtn = document.getElementById('light-diya-btn');
 
             const downloadBtn = document.getElementById('download-btn');
             const certificateDate = document.getElementById('certificate-date');
 
             const indiaMapContainer = document.getElementById('india-map-container');
             const mapCtaButton = document.getElementById('map-cta-button');
-
-
-            let diyaCount = 4126;
-            const diyaCounter = document.getElementById('diya-counter');
 
             let diyaHasBeenLit = false;
 
@@ -559,12 +622,21 @@ align-items: center;
                 const nextScreen = document.getElementById(`screen-${screenNumber}`);
                 if (nextScreen) {
                     nextScreen.classList.add('active');
-                    if (screenNumber === '4' && indiaMapContainer) {
+                    if (screenNumber === '6' && indiaMapContainer) {
                         mapCtaButton.disabled = true;
                         indiaMapContainer.classList.remove('is-lit');
 
                         setTimeout(() => {
                             indiaMapContainer.classList.add('is-lit');
+                            triggerCelebratoryBurst();
+                            const mapCounterElement = document.getElementById('map-diya-counter');
+                            let currentCount = parseInt(mapCounterElement.textContent.replace(/,/g, ''), 10);
+                            currentCount++;
+                            mapCounterElement.textContent = currentCount.toLocaleString();
+                            mapCounterElement.classList.add('burst');
+                            mapCounterElement.addEventListener('animationend', () => {
+                                mapCounterElement.classList.remove('burst');
+                            }, { once: true });
                         }, 500); // Delay before starting animation
 
                         setTimeout(() => {
@@ -582,10 +654,13 @@ align-items: center;
 
                     if (nextScreenNumber === '1') { // Reset logic
                         diyaHasBeenLit = false;
-                        interactiveDiya.classList.remove('lit-effect');
-                        diyaInstruction.classList.remove('hidden');
-                        diyaLitMessage.classList.add('hidden');
-                        screen3Cta.classList.add('hidden');
+                        lightDiyaBtn.disabled = false;
+
+                        document.getElementById('diya-lighting-state').classList.remove('hidden');
+                        document.getElementById('diya-lighting-state').style.opacity = '1';
+                        document.getElementById('diya-lighting-state').style.pointerEvents = 'auto';
+                        interactiveDiyaWrapper.classList.remove('lit-effect');
+
                         empIdInput.value = '';
                         doctorNameInput.value = '';
                         doctorSpecialtyInput.value = '';
@@ -645,12 +720,20 @@ align-items: center;
 
             // --- Step 2: Doctor Details ---
             if (doctorDetailsForm) {
+                if (doctorPhotoInput) {
+                    doctorPhotoInput.addEventListener('change', () => {
+                        if (doctorPhotoInput.files.length > 0) {
+                            photoFileName.textContent = doctorPhotoInput.files[0].name;
+                            photoFileName.style.color = 'var(--deep-purple)';
+                        } else {
+                            photoFileName.textContent = 'Upload Profile Photo';
+                        }
+                    });
+                }
+
+
                 doctorNameInput.addEventListener('input', () => {
                     validateInput(doctorNameInput, /[^a-zA-Z. ]/g, doctorNameError, 'Only letters, spaces, and periods are allowed.');
-                });
-
-                doctorSpecialtyInput.addEventListener('input', () => {
-                    validateInput(doctorSpecialtyInput, /[^a-zA-Z ]/g, doctorSpecialtyError, 'Only letters and spaces are allowed.');
                 });
 
                 doctorDetailsForm.addEventListener('submit', (e) => {
@@ -681,60 +764,19 @@ align-items: center;
                 });
             }
 
-            // --- Step 3: Light Diya ---
-            if (interactiveDiya) {
-                interactiveDiya.addEventListener('click', (e) => {
+            // --- Step 4: Light Diya ---
+            if (lightDiyaBtn) {
+                lightDiyaBtn.addEventListener('click', (e) => {
                     if (diyaHasBeenLit) return;
                     diyaHasBeenLit = true;
                     showClickEffect(e);
 
-                    diyaCount++;
-                    animateCounter(diyaCounter, diyaCount);
-
-                    interactiveDiya.classList.add('lit-effect');
+                    interactiveDiyaWrapper.classList.add('lit-effect');
+                    lightDiyaBtn.disabled = true;
 
                     setTimeout(() => {
-                        diyaInstruction.classList.add('hidden');
-                        diyaLitMessage.classList.remove('hidden');
-                        screen3Cta.classList.remove('hidden');
-                    }, 800);
-                });
-            }
-
-            function animateCounter(element, targetValue) {
-                if (!element) return;
-                let startValue = parseInt(element.textContent.replace(/,/g, '')) || 0;
-                let duration = 500;
-                let startTimestamp = null;
-                const step = (timestamp) => {
-                    if (!startTimestamp) startTimestamp = timestamp;
-                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                    const currentValue = Math.floor(progress * (targetValue - startValue) + startValue);
-                    element.textContent = currentValue.toLocaleString();
-                    if (progress < 1) window.requestAnimationFrame(step);
-                };
-                window.requestAnimationFrame(step);
-            }
-
-            // --- Step 5: Wish Wall ---
-            if (wishForm) {
-                wishForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const message = wishInput.value.trim();
-                    if (message) {
-                        const placeholder = document.getElementById('wall-placeholder');
-                        if (placeholder) placeholder.remove();
-
-                        const newWish = document.createElement('div');
-                        newWish.className = 'wish-card p-3 rounded-lg text-left text-sm';
-                        newWish.innerHTML = `
-                            <p class="text-yellow-100">“${message}”</p>
-                            <p class="text-yellow-400 font-semibold mt-1">– ${doctorNameInput.value ? 'Dr. ' + doctorNameInput.value : 'A Supporter'}</p>
-                        `;
-                        wallOfLight.prepend(newWish);
-                        wishInput.value = '';
-                    }
-                    showScreen('6');
+                        showScreen('5');
+                    }, 2000);
                 });
             }
 
@@ -794,7 +836,8 @@ align-items: center;
                     let vx = Math.cos(this.angle) * this.speed; let vy = Math.sin(this.angle) * this.speed;
                     this.distanceTraveled = Math.sqrt(Math.pow(this.x - this.sx, 2) + Math.pow(this.y - this.sy, 2));
                     if (this.distanceTraveled >= this.distanceToTarget) {
-                        createParticles(this.tx, this.ty); fireworks.splice(index, 1);
+                        createParticles(this.tx, this.ty, this.celebratory);
+                        fireworks.splice(index, 1);
                     } else { this.x += vx; this.y += vy; }
                 };
                 Firework.prototype.draw = function () {
@@ -823,13 +866,46 @@ align-items: center;
                     ctx.strokeStyle = `hsla(${this.hue}, 100%, ${this.brightness}%, ${this.alpha})`; ctx.stroke();
                 };
 
-                function createParticles(x, y) { let particleCount = 40; while (particleCount--) particles.push(new Particle(x, y)); }
+                function createParticles(x, y, celebratory = false) {
+                    let particleCount = celebratory ? 200 : 80;
+                    while (particleCount--) particles.push(new Particle(x, y));
+                }
+
                 function launchFireworks() { if (fireworks.length < 5) { let startX = canvas.width * random(0.4, 0.6); let startY = canvas.height; let targetX = random(0, canvas.width); let targetY = random(0, canvas.height / 2); fireworks.push(new Firework(startX, startY, targetX, targetY)); } }
+
+                function triggerCelebratoryBurst() {
+                    let burstCount = 15;
+                    while (burstCount--) {
+                        setTimeout(() => {
+                            const startX = canvas.width * random(0.3, 0.7);
+                            const startY = canvas.height;
+                            const targetX = random(canvas.width * 0.2, canvas.width * 0.8);
+                            const targetY = random(canvas.height * 0.1, canvas.height * 0.4);
+                            const fw = new Firework(startX, startY, targetX, targetY);
+                            fw.celebratory = true;
+                            fireworks.push(fw);
+                        }, random(0, 800));
+                    }
+                }
+                function triggerSingleFirework() {
+                    const startX = canvas.width * random(0.3, 0.7);
+                    const startY = canvas.height;
+                    const targetX = random(canvas.width * 0.2, canvas.width * 0.8);
+                    const targetY = random(canvas.height * 0.1, canvas.height * 0.4);
+                    const fw = new Firework(startX, startY, targetX, targetY);
+                    fw.celebratory = true;
+                    fireworks.push(fw);
+                }
+
+
                 function loop() {
                     requestAnimationFrame(loop);
                     ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
                     ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.globalCompositeOperation = 'lighter';
-                    fireworks.forEach((fw, i) => { fw.draw(); fw.update(i); });
+                    fireworks.forEach((fw, i) => {
+                        fw.draw();
+                        fw.update(i);
+                    });
                     particles.forEach((p, i) => { p.draw(); p.update(i); });
                 }
 
